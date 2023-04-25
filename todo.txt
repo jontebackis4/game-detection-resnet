@@ -1,0 +1,40 @@
+[ ] Split videos into images
+		1. Ask ChatGPT how to do it.
+		2. Probably something like:
+				for each file, 
+					create folder if it doesn't exist
+					split video into images and place them in the folder
+					name the file to have the right tag
+				divide the dataset into training, validation, and test folders (maybe choose validation and test randomly)
+				create a report on how many images there are in each set and for each game
+
+[x] Choose model to fine tune -> ResNet34 to start with
+[ ] Prepare dataset
+[ ] Potentially gather more data. Currently collected the five latest tabs up till file `Untiteled design.mp4` (24 April)
+
+
+
+
+Here's an outline of the steps you can follow:
+
+1. Choose a pre-trained model: Select an existing image classification model that has been pre-trained on a large dataset,
+	such as ImageNet. Examples include ResNet, VGG, Inception, and MobileNet.
+
+2. Prepare your dataset: Collect images from different video games and label them with the respective game titles.
+	Make sure to include a variety of images for each game to capture different scenes, characters, and gameplay elements.
+	Split your dataset into training, validation, and testing sets.
+
+3. Modify the model architecture: Remove the final classification layer from the pre-trained model and replace it with
+	a new layer that has the same number of output units as the number of video game titles you want to classify.
+	This new layer will be responsible for predicting the game labels.
+
+4. Fine-tune the model: Freeze the earlier layers of the model, so their weights remain unchanged during training.
+	This helps preserve the features learned from the pre-training phase. Train the modified model on your video game dataset,
+	adjusting the weights of the newly added layers. This will allow the model to learn the specific features of your target video games.
+
+5. Evaluate the model: Assess the performance of the fine-tuned model using your validation and testing sets.
+	Calculate relevant metrics, such as accuracy or F1-score, to gauge the effectiveness of the model in classifying
+	images from different video games.
+
+6. Adjust and iterate: If necessary, fine-tune the model further, experiment with different pre-trained models
+	or model architectures, or augment your dataset to improve the model's performance.
