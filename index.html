@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        input[type="file"] {
+            margin-top: 20px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 40px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Classifier</h1>
+    <form>
+        <input type="file" id="image" accept="image/*">
+        <button type="button" onclick="classifyImage()">Classify Image</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        const API_URL = 'http://127.0.0.1:5000/predict';
+
+        async function classifyImage() {
+            const imageInput = document.getElementById('image');
+            const resultDiv = document.getElementById('result');
+
+            if (imageInput.files.length === 0) {
+                alert('Please choose an image file.');
+                return;
+            }
+
+            const imageFile = imageInput.files[0];
+
+            try {
+                const formData = new FormData();
+                formData.append('file', imageFile);
+
+                resultDiv.textContent = 'Classifying...';
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error in API request');
+                }
+
+                const jsonResponse = await response.json();
+                resultDiv.textContent = `Class: ${jsonResponse.class_name}`;
+
+            } catch (error) {
+                console.error(error);
+                resultDiv.textContent = 'Error: Unable to classify the image.';
+            }
+        }
+    </script>
+</body>
+</html>

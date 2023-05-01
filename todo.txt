@@ -38,3 +38,8 @@ Here's an outline of the steps you can follow:
 
 6. Adjust and iterate: If necessary, fine-tune the model further, experiment with different pre-trained models
 	or model architectures, or augment your dataset to improve the model's performance.
+
+
+
+	Question:
+	- Why are there so many images? Shouldn't there be less?
